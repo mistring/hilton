@@ -84,7 +84,7 @@ data class Geolocation(
 )
 ```
 
-The last 3 fields shown here (such as "internetServiceProvider") could have been named as-is, but I showcase the ColumnInfo annotation to match the name of the field as defiend in the ip-api response json.
+The last 3 fields shown here (such as "internetServiceProvider") could have been named as-is, but I showcase the ColumnInfo annotation to match the name of the field as defined in the ip-api response json.
 
 
 ## STEP 3:
@@ -105,7 +105,7 @@ When clicking on the Home Screen's Search button:
 
 - It checks the Room database for a query match
 - If found, the Geolocation results are displayed on the Home Screen
-- If not found in the database ("lcoal cache"), then the network API is called for the given query. Upon return of the API call, its results get persisted to the Room database, then shown on the Home Screen (UI).
+- If not found in the database ("local cache"), then the network API is called for the given query. Upon return of the API call, its results get persisted to the Room database, then shown on the Home Screen (UI).
 
 The Home Screen also has a History button, which navigates to a History Screen  (a flat list of items from the database).
 
@@ -113,7 +113,7 @@ This image shows 4 screenshots: 3 of the Home Screen, and 1 of the History Scree
 
 ![Code Challenge Screenshots](screenshots.png "App Screenshots")
 
-Future enhancements to the Home Screen results could have inclued a mapping solution, such as MapBox or Google Maps. Also, if results were paginated, I could have used the RemoteMediator API to load netowrk data into a local cache (Room) as well as pagination.
+Future enhancements to the Home Screen results could have included a mapping solution, such as MapBox or Google Maps. Also, if results were paginated, I could have used the RemoteMediator API to load network data into a local cache (Room) as well as pagination.
 
 
 
@@ -121,14 +121,14 @@ Future enhancements to the Home Screen results could have inclued a mapping solu
 
 > Think about a way to automatically test this application so that you end up with reliable and reproducible results
 
-There are 2 main tetsing efforts added to this app: `androidtest` and `test`.
+There are 2 main testing efforts added to this app: `androidtest` and `test`.
 
 The `androidTest` package includes testing efforts that rely on the Android framework, namely Room Database testing and Network API calls (via Retrofit).
 
 - the Room Database tests use an in-memory database to test insertions, deletions, and updates
 - the network API tests the network repository, which in turn calls the Retrofit API call function. Automatic JSON serialization is making use of GSON (via GsonConverterFactory), but other converters could be used, such as: jackson, moshi, protobuf, etc.
 
-The `test` package includes Unit Tests that don't rely on the Android framework. They currfently include testing the Validation class responsible for determining whether the "text input" (on the Home Screen) has valid query data.
+The `test` package includes Unit Tests that don't rely on the Android framework. They currently include testing the Validation class responsible for determining whether the "text input" (on the Home Screen) has valid query data.
 
 - According to the [API docs](https://ip-api.com/docs/api:json), a valid query can be:
 	- Empty string (uses the current IP address)
@@ -142,7 +142,7 @@ Note: My Unit Tests helped me to uncover a small, subtle flaw: The function `isB
 
 In terms of **automatically** testing this code, there are a few options that could be added to an Android project:
 
-1. A **CI/CD** (continuous integration and continuous delivery/deployment) process could be used to trigger automatic builds whenever a team member commits code to a code repository (such as GutHub, Bitbucket, etc.). In addition to producing a release build, the CI/CD process can also trigger tests - therefore the system will automatically test the code each time a commit is processedd.
+1. A **CI/CD** (continuous integration and continuous delivery/deployment) process could be used to trigger automatic builds whenever a team member commits code to a code repository (such as GutHub, Bitbucket, etc.). In addition to producing a release build, the CI/CD process can also trigger tests - therefore the system will automatically test the code each time a commit is processed.
 2. Another approach would be to add a **Git Hook** to run tests upon each `git push` from the client. For example, a file named "pre-push" can be created in the folder `your_repo/.git/hooks`, and make it executable (via command `chmod +x pre-push`), and configure it to run gradle tasks such as `./gradlew clean test` or `./gradle check`. This approach would require each team member to configure git hooks on their own development machine.
 
 These techniques can help provide reliable results in the application by catching issues as soon as they are pushed to a shared repository. Also, by having these tests run each and every time, over and over again, it helps to ensure reproducible results.
@@ -213,7 +213,7 @@ It includes 2 helper functions.
 
 > Modify the fourth point to refresh the geolocation data if the timestamp is older than 5 minutes
 
-I modified the Home Screen's ViewModel to include this new business requirement. Instead of simply returning a database entry when the query matches, I now introduce a 5-minute check to see if the database results are "stale". If the database entry is older than 5 minutes, then I fetch new, fresh results from the network API, and updated the database entry accordingly.
+I modified the Home Screen's ViewModel to include this new business requirement. Instead of simply returning a database entry when the query matches, I now introduce a 5-minute check to see if the database results are "stale". If the database entry is older than 5 minutes, then I fetch new, fresh results from the network API, and update the database entry accordingly.
 
 ```
 if (dbResult.timestamp < System.currentTimeMillis() - STALE_MILLIS) {
@@ -237,7 +237,7 @@ companion object {
 
 #### Error Handling
 
-This Android app uses concepts from **MVVM** and **Clean Architecture** and **Dependecy Injection** (via "Hilt", to help build apps at scale), with error handling included. For example, the Domain Layer (Use Cases) uses try/catch blocks to surround calls to the database or network. If an error occurs, they are wrapped in a `Resource` object, and passed back to the ViewModel and View for handling. Successful database and network calls are also wrapped in a `Resource` object, together with the appropriate data from the call. These try/catch blocks are also operating within the context of a Coroutine so as not to block the responsiveness of the UI.
+This Android app uses concepts from **MVVM** and **Clean Architecture** and **Dependency Injection** (via "Hilt", to help build apps at scale), with error handling included. For example, the Domain Layer (Use Cases) uses try/catch blocks to surround calls to the database or network. If an error occurs, they are wrapped in a `Resource` object, and passed back to the ViewModel and View for handling. Successful database and network calls are also wrapped in a `Resource` object, together with the appropriate data from the call. These try/catch blocks are also operating within the context of a Coroutine so as not to block the responsiveness of the UI.
 
 The UI will display errors if there is a Network Timeout, or if the Query is invalid, or if there are Database issues. This provides a responsive app that handles back-end errors gracefully.
 
@@ -246,11 +246,11 @@ The UI will display errors if there is a Network Timeout, or if the Query is inv
 
 Logging is important for several reasons:
 
-- It can help identify issues in the code before and during the launch of the app in produciton
+- It can help identify issues in the code before and during the launch of the app in production
 
 - It can help developers understand the flow of logic while debugging the app - especially for those who are new to the codebase
 
-- Logs can be sent to a remote debugging service so that issues can be diagnosed outside of the local debugging environment (in produciton, etc.)
+- Logs can be sent to a remote debugging service so that issues can be diagnosed outside of the local debugging environment (in production, etc.)
 
 - Logs can also help with tracking the usage of various items in the app as well as providing performance insights
 
@@ -279,4 +279,4 @@ Content-Length: 311
 
 ## Final comment
 
-Thank you for allowing me to showcase a few Android fetures and techniques by creating this app!
+Thank you for allowing me to showcase a few Android features and techniques by creating this app!
