@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">IP Geolocation</string>
+
+    <!-- Home Screen -->
+    <string name="home_screen_title">Code Challenge</string>
+    <string name="ip">IP</string>
+    <string name="geolocation">Geolocation</string>
+    <string name="ip_address_or_blank">IP Address or Domain Name</string>
+    <string name="search_btn_label">Search</string>
+    <string name="invalid_db_results">Invalid database results. Please try again.</string>
+    <string name="invalid_query">Invalid search. Please try again.</string>
+    <string name="invalid_api_result">Invalid API result. Please try again.</string>
+    <string name="history_button_label">History</string>
+    <string name="latitude">%1$.2f Latitude</string>
+    <string name="longitude">%1$.2f Longitude</string>
+    <string name="timezone">Timezone:</string>
+    <string name="isp">ISP:</string>
+    <string name="org">ORG:</string>
+    <string name="as">AS:</string>
+
+    <!-- History Screen -->
+    <string name="history_screen_title">History</string>
+    <string name="back_button">Back</string>
+    <string name="delete_icon_description">Delete</string>
+
+</resources>
