@@ -45,9 +45,11 @@ class HomeViewModel @Inject constructor(
     private val appUseCases: AppUseCases
 ) : ViewModel() {
 
+    // TODO: This should be a state flow
     var state: HomeState by mutableStateOf(HomeState.Idle)
         private set
 
+    // TODO: This mutableStateOf should be pushed down into the Composable, and then a one-way call to update the source-of-truth here in the ViewModel
     var searchQuery by mutableStateOf("")
         private set
 

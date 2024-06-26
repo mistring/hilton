@@ -38,6 +38,7 @@ class HistoryViewModel @Inject constructor(
     private val appUseCases: AppUseCases
 ) : ViewModel() {
 
+    // TODO: This should be a state flow
     var state: HistoryState by mutableStateOf(HistoryState.Loading)
         private set
 
